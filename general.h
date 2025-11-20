@@ -20,7 +20,7 @@ using namespace std;
 
 // STRUCTS WE BOTH NEED
 
-struct datosEntrada {
+struct datosInput {
     int n; // # de colonias
     int m; // # de conexiones
     int k; // # conexiones con nuevo cableado
@@ -33,15 +33,15 @@ struct colonia {
     int esCentral; // 1 si es central, 0 si no
 };
 
-struct Conexion {
+struct conexion {
     string col1, col2;
     int costo;
 };
 
 // FUNCIONES WE BOTH NEED
 
-datosEntrada leerDatosIniciales() {
-    datosEntrada datos;
+datosInput leerDatosIniciales() {
+    datosInput datos;
     cin >> datos.n >> datos.m >> datos.k >> datos.q;
     return datos;
 }
