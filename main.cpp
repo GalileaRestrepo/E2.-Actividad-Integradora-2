@@ -1,32 +1,24 @@
-//#include "general.h"
 #include "problema1.h"
-//#include "problema2.h"
-//#include "problema3.h"
-//#include "problema4.h"
+#include "problema2.h"
+#include "problema3.h"
+#include "problema4.h"
 
 #include <map>
 
 using namespace std;
 
-// clang++ main.cpp -o programa
-// ./programa
-
-// clang++ main.cpp -o programa
-// ./programa
-
 int main(){
 
-    //PROBLEMA 1
     int n, m, k, q; // cantidad de colonias, num conexiones entre colonias, 
     //las conexiones con el nuevo cableado, y futuras colonias
     cin >> n >> m >> k >> q;
 
-    Graph g(n, m);
+    // -----------------------------------------PROBLEMA 1
+    Graph1 g(n, m);
     
     string nombreCol; 
     int x, y; 
     int esCentral; // 1 si es central, 0 si no
-
 
     map<string, int> coloniasIdx;
     vector<string> colonias(n);
@@ -64,7 +56,6 @@ int main(){
         cin >> nuevaCol >> x >> y; // nuevas colonias y sus puntos cartecianos
     }
 
-
 	g.kruskalMST();
 
     string cableado1, cableado2;
@@ -84,12 +75,10 @@ int main(){
     cout << endl;
 
     cout << "-------------------" << endl;
-    return 0;
+    // -----------------------------------------
 
-    /*
+    
     int matAdj[MAX][MAX];
-    int n, m, k, q;
-    cin >> n >> m >> k>> q;
     Graph G(n);
     vector<int> visitar;
     initMatAdj(matAdj);
@@ -97,7 +86,8 @@ int main(){
     floyd(matAdj, n);
     despliega(matAdj, G,n);
     return 0;
-    */
+    
+    
 
 }
 

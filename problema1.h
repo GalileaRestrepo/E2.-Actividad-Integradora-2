@@ -14,14 +14,14 @@
 using namespace std;
 
 
-struct Graph{
+struct Graph1{
 	// V = Cantidad de nodos (Vertex)
 	// E = Cantidad de Arcos (Edges)
 	int V, E;
     long long costMSTKruskal;
 	vector<pair<long long, pair<int, int>>> edges;	// Utilizar en Kruskal
 	vector<pair<int, pair<int,int>>> selectedEdgesK;		// Arcos seleccionados por Kruskal
-	Graph(int V, int E){
+	Graph1(int V, int E){
 		this->V = V;
 		this->E = E;
 		costMSTKruskal = 0;
@@ -73,7 +73,7 @@ struct DisjointSets{
 	}
 };
 
-void Graph::load(){
+void Graph1::load(){
 	int a, b;
     long long c;
 	for (int i=0; i<E; i++){
@@ -84,7 +84,7 @@ void Graph::load(){
 
 
 // Complejidad: O(E log E)
-void Graph::kruskalMST(){
+void Graph1::kruskalMST(){
 	sort(edges.begin(), edges.end());
 	DisjointSets ds(V);
 
@@ -101,7 +101,7 @@ void Graph::kruskalMST(){
 	}
 }
 
-void Graph::printTotalCost(){
+void Graph1::printTotalCost(){
 	//verificar si el grafo está conectado
 	if(selectedEdgesK.size() == V-1){
 		cout << "Costo Total: "<< costMSTKruskal << endl; //costo total de reparación
