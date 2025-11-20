@@ -1,7 +1,7 @@
-#include <iostream>
-#include <string>
+#include "general.h"
+#include "problema1.h"
+#include "problema2.h"
 
-using namespace std;
 
 int main(){
     int n, m, k, q; // cantidad de colonias, num conexiones entre colonias, 
@@ -31,12 +31,10 @@ int main(){
     for (int i = 0; i < q; i++){
         cin >> nuevaCol >> posColonia; // nuevas colonias y sus puntos cartecianos
     }
-
-
-
-
     
-
+    procesarCasos(); // problema 2
+    
+    return 0;
 
 }
 /*5 8 1 2                    

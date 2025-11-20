@@ -1,41 +1,26 @@
 /*
-Actividad 11 - Sparko Birthday II
-Anna Galilea Restrepo Martínez - A01178273
-*/
-
-/*
 Complejidad:
 TSP problem
 Held-Karp (DP bitmask): O(n^2 * 2^n)
 n = número de doghouses
 */
-
 /* 
- 
 ¿cuál es la ruta más corta posible que visita cada colonia exactamente una vez y al finalizar regresa a la colonia origen? 
 Tomar en cuenta que muchas veces el costo mínimo puede pasar por una colonia central o más intermedias. 
 El programa debe desplegar la ruta a considerar así como el costo.
 */
 
-
-#include <iostream>
-#include <vector>
-#include <climits>
-#include <cctype>
-
-#define INF 1000000000
-using namespace std;
+#include "problema2.h"
+#include "general.h"
 
 void procesarCasos() {
     int n, m, k, q; //n = número de colonias, m = número de conexiones entre colonias
     int esCentral;
     cin >> n>> m>> k>> q;
-
     //Matriz de adyacencia inicializada con INF
     vector<vector<int>> dist(n, vector<int>(n, INF));
     for (int i = 0; i < n; i++)
         dist[i][i] = 0;
-
     //Leer las conexiones entre doghouses
     for (int i = 0; i < m; i++) {
         char nombreCol;
@@ -53,7 +38,6 @@ void procesarCasos() {
         int Nmask = 1 << n;
         vector<vector<int>> dp(Nmask, vector<int>(n, INF));
         dp[1][0] = 0; // inicia en A (bit 0 prendido)
-
         //Transiciones del algoritmo Held-Karp
         for (int mask = 1; mask < Nmask; mask++) {
             for (int u =0; u < n; u++) {
@@ -78,14 +62,7 @@ void procesarCasos() {
         if (ans >= INF) cout << "INF\n";
         else cout << ans << "\n";  
     } else{
+        // aplicar floyd warshall para permitir pasar por colonias centrales
         
-
-
     }
-}
-
-
-int main() {
-    procesarCasos();
-    return 0;
 }
