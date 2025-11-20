@@ -18,7 +18,33 @@ si eso pasa habria errores de "redefinicion" de structs/funciones
 
 using namespace std;
 
-// STRUCTS OF BASIC STRUCTS NEEDED & GRAPH STRUCTS NEEDED
+// STRUCTS WE BOTH NEED
+
+struct datosEntrada {
+    int n; // # de colonias
+    int m; // # de conexiones
+    int k; // # conexiones con nuevo cableado
+    int q; // # futuras colonias
+};
+
+struct colonia {
+    string nombre;
+    int x,y; // pos
+    int esCentral; // 1 si es central, 0 si no
+};
+
+struct Conexion {
+    string col1, col2;
+    int costo;
+};
+
+// FUNCIONES WE BOTH NEED
+
+datosEntrada leerDatosIniciales() {
+    datosEntrada datos;
+    cin >> datos.n >> datos.m >> datos.k >> datos.q;
+    return datos;
+}
 
 //CONSTANTS
 const int INF = 1000000000;  // ← problema2.cpp 
