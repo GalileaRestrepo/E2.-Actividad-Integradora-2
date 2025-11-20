@@ -49,4 +49,7 @@ datosInput leerDatosIniciales() {
 //CONSTANTS
 const int INF = 1000000000;  // ← problema2.cpp 
 
+//COSAS DE GRAFOS MYBERS
+
+
 #endif

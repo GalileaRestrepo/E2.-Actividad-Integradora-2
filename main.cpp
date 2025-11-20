@@ -1,6 +1,8 @@
 #include "general.h"
 #include "problema1.h"
 #include "problema2.h"
+#include "problema3.h"
+#include "problema4.h"
 
 // clang++ main.cpp -o programa
 // ./programa
