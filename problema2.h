@@ -12,9 +12,22 @@ El programa debe desplegar la ruta a considerar así como el costo.
 
 #ifndef PROBLEMA2_H
 #define PROBLEMA2_H
-#include "general.h"
 
+#include <iostream>
+#include <string>
+#include <vector>
+#include <climits>
+#include <cctype>
+#include <string>
+#include <queue>
+#include <map>
+using namespace std;
 
+#define INF INT_MAX
+#define Edge pair<int,int>
+#define Graph vector<vector<Edge>>
+#define Vertex pair<int, int> 
+#define MAX 10
 /* 
 ASC05 – Shortest Path.
 Algoritmos de Dijkstra y Floyd-Warshall
