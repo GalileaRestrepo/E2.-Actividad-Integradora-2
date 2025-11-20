@@ -11,8 +11,15 @@
 // ./programa
 int main(){
     
-    procesarCasos(); // problema 2
-    
+    int matAdj[MAX][MAX];
+    int n, m, k, q;
+    cin >> n >> m >> k>> q;
+    Graph G(n);
+    vector<int> visitar;
+    initMatAdj(matAdj);
+    leeDatos(matAdj, G, n,m,k,q,visitar);
+    floyd(matAdj, n);
+    despliega(matAdj, G,n);
     return 0;
 
 }

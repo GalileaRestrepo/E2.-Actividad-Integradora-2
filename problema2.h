@@ -36,86 +36,84 @@ void initMatAdj(int matAdj[MAX][MAX]){
     }
 }
 
-void leeDatos(int matAdj[MAX][MAX], Graph&G, int e){
-    int u, v, w;
-    for(int i=0; i<e; i++){
-        cin >> u >> v >> w;
-        matAdj[u-1][v-1] = matAdj[v-1][u-1] = w;
-        Edge edge1(v-1, w);
-        G[u-1].push_back(edge1);
-        Edge edge2(u-1, w);
-        G[v-1].push_back(edge2);
+/*5 8 1 2                    
+(5 colonias, 8 conexiones, 1 conexion que ya cuenta con el nuevo cableado, 2 nuevas colonias)
+
+LindaVista 200 120 1
+Purisima 150 75 0
+Tecnologico -50 20 1
+Roma -75 50 0
+AltaVista -50 40 0
+(nombre colonia, posicion cartesiana, es central si o no)
+
+LindaVista Purisima 48
+LindaVista Roma 17
+Purisima Tecnologico 40
+Purisima Roma 50
+Purisima AltaVista 80
+Tecnologico Roma 55
+Tecnologico AltaVista 15
+Roma AltaVista 18
+(nombres de las colonias conectadas y el costo de la conexion)
+
+Purisima Tecnologico
+(nombres de las colonias que ya cuentan con el nuevo cableado)
+
+Independencia 180 -15
+Roble 45 68
+(nuevas colonias y sus posiciones cartecianas) 
+*/
+
+void leeDatos(int matAdj[MAX][MAX], Graph&G, int n, int m, int k, int q, vector<int>& visitar){
+    string nombreCol;
+    int x, y, esCentral;
+     //para guardar los que son no centrales, asi we keep track of them
+    //build dictionary
+    //name-> index(not for weight): translates names to numbers
+    unordered_map<string,int> coloniasIdx;
+    //
+    string col1, col2;
+    int peso;
+
+    
+    for(int i=0;i<n;i++){
+        cin >> nombreCol >> x >> y >> esCentral;
+        coloniasIdx[nombreCol] =i; //el mapa
+        if (esCentral ==0){
+            visitar.push_back(i);
+        }
+    }
+
+  
+    for(int i=0; i<m; i++){
+        cin >> col1 >> col2 >> peso; 
+        int idx1=coloniasIdx[col1];
+        int idx2=coloniasIdx[col2];
+        matAdj[idx1][idx2] = matAdj[idx2][idx1] = peso;
+        Edge edge1(idx2, peso);
+        G[idx1].push_back(edge1);
+        Edge edge2(idx1, peso);
+        G[idx2].push_back(edge2);
     }
 }
 
-vector<int> dijkstra(Graph &G, int s){
-    s--;
-    vector<int> dist(G.size(), INF);
-    dist[s] = 0;
-    priority_queue<Vertex, vector<Vertex>, greater<Vertex>> pq;
-    Vertex vs(0, s); 
-    pq.push(vs);
-    while(!pq.empty()){
-        int d = pq.top().first;
-        int u = pq.top().second;
-        pq.pop();
-        if(d>dist[u]) continue;
-        for(int j=0; j<G[u].size(); j++){
-            Edge e = G[u][j];
-            int v = e.first;    
-            int w = e.second;  
-            if(dist[v] > dist[u]+w){
-                dist[v] = dist[u]+w;
-                Vertex vtx(dist[v], v);
-                pq.push(vtx);
+void floyd(int matAdj[MAX][MAX], int v){
+    for(int k=0; k<v; k++){
+        for(int i=0; i<v; i++){
+            for(int j=0; j<v; j++){
+                if(matAdj[i][k] != INF && matAdj[k][j] != INF &&
+                    matAdj[i][j] > matAdj[i][k] + matAdj[k][j]){
+                    matAdj[i][j] = matAdj[i][k] + matAdj[k][j];
+                }
             }
         }
     }
-    return dist;
 }
 
-void despliega(int matAdj[MAX][MAX], Graph &G, vector<int> &dist, int s){
-    s--; 
-    cout << "Dijkstra: " << endl;
-    for(int i=0; i<dist.size(); i++){
-        if(s != i){
-            cout << (s+1) << " --> " << (i+1) << ": " << dist[i] << endl;
-        }
-    }
-}
 
-/*int main() {
-    int matAdj[MAX][MAX];
-    int v, e, s;
-    cin >> v >> e >> s;
-    Graph G(v);
-    initMatAdj(matAdj);
-    leeDatos(matAdj, G, e);   
-    vector<int> dist = dijkstra(G, s);
-    despliega(matAdj, G, dist, s);
-    return 0;
-}
-
-void procesarCasos() {
-    int n, m, k, q; //n = numero de colonias, m = numero de conexiones entre colonias
-    int esCentral;
-    cin >> n>> m>> k>> q;
+void TSP(int matAdj[MAX][MAX], vector<int>& visitar) {
     //Matriz de adyacencia inicializada con INF
-    vector<vector<int>> dist(n, vector<int>(n, INF));
-    for (int i = 0; i < n; i++)
-        dist[i][i] = 0;
-    //Leer las conexiones entre doghouses
-    for (int i = 0; i < m; i++) {
-        char nombreCol;
-        int x, y;
-        cin >> nombreCol >> x >> y >> esCentral;
-        int m = x-'A';
-        int k = y-'A';
-        dist[m][k] = min(dist[m][k], esCentral);
-        dist[k][m] = min(dist[k][m], esCentral);
-    }
-    
-    if (esCentral != 0){
+    matAdj[visitar[0]][visitar[1]];
         //DP bitmask: dp[mask][i] = menor costo para visitar mask y terminar en i
         int Nmask = 1 << n;
         vector<vector<int>> dp(Nmask, vector<int>(n, INF));
@@ -128,9 +126,9 @@ void procesarCasos() {
                 
                 for (int v = 0; v < n; v++) {
                     if (mask & (1 <<v)) continue; 
-                    if (dist[u][v] ==INF) continue; 
+                    if (min(dist[m][k], esCentral) ==INF) continue; 
                     int nextMask = mask | (1 << v);
-                    dp[nextMask][v] =min(dp[nextMask][v], dp[mask][u] + dist[u][v]);
+                    dp[nextMask][v] =min(dp[nextMask][v], dp[mask][u] + min(dist[m][k], esCentral));
                 }
             }
         }
@@ -142,10 +140,18 @@ void procesarCasos() {
         }
         if (ans >= INF) cout << "INF\n";
         else cout << ans << "\n";  
-    } else{
-        // aplicar floyd warshall para permitir pasar por colonias centrales
-        
+}
+
+
+void despliega(int matAdj[MAX][MAX], Graph &G, int n){ 
+    cout << "Floyd:"<<endl;
+    for (int i =0; i<n;++i){
+        for (int j =0; j<n;++j){
+            if(matAdj[i][j] >=INF) cout << "INF";
+            else cout <<matAdj[i][j]<<"";
+        }
     }
-}*/
+}
+
 
 #endif
