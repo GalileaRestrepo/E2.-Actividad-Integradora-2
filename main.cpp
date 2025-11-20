@@ -1,16 +1,92 @@
-#include "general.h"
+//#include "general.h"
 #include "problema1.h"
-#include "problema2.h"
+//#include "problema2.h"
 #include "problema3.h"
 #include "problema4.h"
 
+#include <map>
+
+using namespace std;
+
 // clang++ main.cpp -o programa
 // ./programa
 
 // clang++ main.cpp -o programa
 // ./programa
+
 int main(){
+
+    //PROBLEMA 1
+    int n, m, k, q; // cantidad de colonias, num conexiones entre colonias, 
+    //las conexiones con el nuevo cableado, y futuras colonias
+    cin >> n >> m >> k >> q;
+
+    Graph g(n, m);
     
+    string nombreCol; 
+    int x, y; 
+    int esCentral; // 1 si es central, 0 si no
+
+
+    map<string, int> coloniasIdx;
+    vector<string> colonias(n);
+
+    for (int i = 0; i < n; i++){
+        cin >> nombreCol >> x >> y >> esCentral;
+        coloniasIdx[nombreCol] = i;
+        colonias[i] = nombreCol;
+    }
+
+    string con1, con2; // conexiones entre colonias
+    int costo;
+    int idxCol1;
+    int idxCol2;
+    for (int i = 0; i < m; i++){
+        cin >> con1 >> con2 >> costo;
+        idxCol1 = coloniasIdx[con1];
+        idxCol2 = coloniasIdx[con2];
+        g.addEdge(idxCol1, idxCol2, costo);
+    }
+
+    int idxNuevoCol1;
+    int idxNuevoCol2;
+    //map<string, int> cableadoNuevo;
+    string nuevaCon1, nuevaCon2; // nuevas conexiones con el nuevo cableado
+    for (int i = 0; i < k; i++){
+        cin >> nuevaCon1 >> nuevaCon2;
+        idxCol1 = coloniasIdx[nuevaCon1];
+        idxCol2 = coloniasIdx[nuevaCon2];
+        g.addEdge(idxCol1, idxCol2, 0);
+    }
+
+    string nuevaCol;
+    for (int i = 0; i < q; i++){
+        cin >> nuevaCol >> x >> y; // nuevas colonias y sus puntos cartecianos
+    }
+
+
+	g.kruskalMST();
+
+    string cableado1, cableado2;
+    int costoCon;
+    cout << "-------------------" << endl << "1 - Cableado óptimo de nueva conexión." << endl;
+    cout << endl;
+    for (auto it:g.selectedEdgesK){
+        if (it.first != 0){
+            cableado1 = colonias[it.second.first];
+            cableado2 = colonias[it.second.second];
+            costoCon = it.first;
+            cout << cableado1 << " - " << cableado2 << " " << costoCon << endl;
+        }
+	}
+    cout << endl;
+    g.printTotalCost();
+    cout << endl;
+
+    cout << "-------------------" << endl;
+    return 0;
+
+    /*
     int matAdj[MAX][MAX];
     int n, m, k, q;
     cin >> n >> m >> k>> q;
@@ -21,6 +97,7 @@ int main(){
     floyd(matAdj, n);
     despliega(matAdj, G,n);
     return 0;
+    */
 
 }
 
