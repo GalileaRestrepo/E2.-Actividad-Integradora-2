@@ -3,4 +3,6 @@
 #include "general.h"
 // aqui iria la declaracion de la funcion del prob
 
+
+
 #endif

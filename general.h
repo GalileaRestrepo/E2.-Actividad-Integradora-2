@@ -1,5 +1,5 @@
-#ifndef BASICOS_H
-#define BASICOS_H
+#ifndef GENERAL_H
+#define GENERAL_H
 
 /*
 header guards ↑ 
@@ -16,6 +16,7 @@ si eso pasa habria errores de redefinicion de structs/funciones
 #include <cctype>
 #include <string>
 #include <queue>
+#include <map>
 
 
 

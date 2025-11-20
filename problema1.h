@@ -1,7 +1,9 @@
 #ifndef PROBLEMA1_H
 #define PROBLEMA1_H
+
 //#include "general.h"
 // aqui iria la declaracion de la funcion del prob
+
 #include <iostream>
 #include <string>
 #include <iostream>
@@ -10,6 +12,7 @@
 #include <climits>
 #include <map>
 using namespace std;
+
 
 struct Graph{
 	// V = Cantidad de nodos (Vertex)
