@@ -2,41 +2,22 @@
 #include "problema1.h"
 #include "problema2.h"
 
+// clang++ main.cpp -o programa
+// ./programa
 
+// clang++ main.cpp -o programa
+// ./programa
 int main(){
-    int n, m, k, q; // cantidad de colonias, num conexiones entre colonias, 
-    //las conexiones con el nuevo cableado, y futuras colonias
-    
-    string nombreCol; 
-    int posColonia; 
-    int esCentral; // 1 si es central, 0 si no
-
-    for (int i = 0; i < n; i++){
-        cin >> nombreCol >> posColonia >> esCentral;
-    }
-
-    int con1, con2; // conexiones entre colonias
-    int costo;
-    for (int i = 0; i < m; i++){
-        cin >> con1 >> con2 >> costo;
-    }
-
-    int nuevaCon1, nuevaCon2; // nuevas conexiones con el nuevo cableado
-    for (int i = 0; i < k; i++){
-        cin >> nuevaCon1 >> nuevaCon2;
-
-    }
-
-    int nuevaCol;
-    for (int i = 0; i < q; i++){
-        cin >> nuevaCol >> posColonia; // nuevas colonias y sus puntos cartecianos
-    }
     
     procesarCasos(); // problema 2
     
     return 0;
 
 }
+
+// clang++ main.cpp -o programa
+// ./programa
+
 /*5 8 1 2                    
 (5 colonias, 8 conexiones, 1 conexion que ya cuenta con el nuevo cableado, 2 nuevas colonias)
 

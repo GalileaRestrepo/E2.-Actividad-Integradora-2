@@ -1,4 +1,4 @@
 #include "problema1.h"
 #include "general.h"
 
-// aqui la implementación del prob 1
+// aqui la implementacion del prob 1

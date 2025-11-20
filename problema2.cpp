@@ -14,7 +14,7 @@ El programa debe desplegar la ruta a considerar así como el costo.
 #include "general.h"
 
 void procesarCasos() {
-    int n, m, k, q; //n = número de colonias, m = número de conexiones entre colonias
+    int n, m, k, q; //n = numero de colonias, m = numero de conexiones entre colonias
     int esCentral;
     cin >> n>> m>> k>> q;
     //Matriz de adyacencia inicializada con INF
@@ -28,32 +28,30 @@ void procesarCasos() {
         cin >> nombreCol >> x >> y >> esCentral;
         int m = x-'A';
         int k = y-'A';
-        // Los caminos son bidireccionales
         dist[m][k] = min(dist[m][k], esCentral);
         dist[k][m] = min(dist[k][m], esCentral);
     }
     
     if (esCentral != 0){
-        //DP bitmask: dp[mask][i] = menor costo para visitar 'mask' y terminar en i
+        //DP bitmask: dp[mask][i] = menor costo para visitar mask y terminar en i
         int Nmask = 1 << n;
         vector<vector<int>> dp(Nmask, vector<int>(n, INF));
-        dp[1][0] = 0; // inicia en A (bit 0 prendido)
+        dp[1][0] = 0; 
         //Transiciones del algoritmo Held-Karp
         for (int mask = 1; mask < Nmask; mask++) {
             for (int u =0; u < n; u++) {
-                if (!(mask & (1 << u))) continue; // si u no está visitado
+                if (!(mask & (1 << u))) continue; 
                 if (dp[mask][u] == INF) continue;
                 
                 for (int v = 0; v < n; v++) {
-                    if (mask & (1 <<v)) continue; //ya visitado
-                    if (dist[u][v] ==INF) continue; //sin conexión directa
-                    
+                    if (mask & (1 <<v)) continue; 
+                    if (dist[u][v] ==INF) continue; 
                     int nextMask = mask | (1 << v);
                     dp[nextMask][v] =min(dp[nextMask][v], dp[mask][u] + dist[u][v]);
                 }
             }
         }
-        //Buscar el costo mínimo para regresar a A
+        //Buscar el costo minimo para regresar a A
         int ans =INF;
         for (int u = 1; u <n; u++) {
             if (dist[u][0] <INF)
