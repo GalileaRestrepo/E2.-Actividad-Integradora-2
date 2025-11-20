@@ -15,6 +15,10 @@ si eso pasa habria errores de redefinicion de structs/funciones
 #include <climits>
 #include <cctype>
 #include <string>
+#include <queue>
+
+
+
 
 using namespace std;
 
@@ -47,8 +51,11 @@ datosInput leerDatosIniciales() {
 }
 
 //CONSTANTS
-const int INF = 1000000000;  // ← problema2.cpp 
-
+#define INF INT_MAX
+#define Edge pair<int,int>
+#define Graph vector<vector<Edge>>
+#define Vertex pair<int, int> 
+#define MAX 10
 //COSAS DE GRAFOS MYBERS
 
 
