@@ -84,7 +84,7 @@ void despliega(int matAdj[MAX][MAX], Graph &G, vector<int> &dist, int s){
     }
 }
 
-int main() {
+/*int main() {
     int matAdj[MAX][MAX];
     int v, e, s;
     cin >> v >> e >> s;
@@ -146,6 +146,6 @@ void procesarCasos() {
         // aplicar floyd warshall para permitir pasar por colonias centrales
         
     }
-}
+}*/
 
 #endif
