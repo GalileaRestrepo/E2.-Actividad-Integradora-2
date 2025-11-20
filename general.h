@@ -1,11 +1,11 @@
 #ifndef BASICOS_H
 #define BASICOS_H
-// ↑ abre el bloque
 
 /*
-header guards: previenen que general.h se incluya varias veces
-indirectamente cuando varios .h lo incluyen, asi no se procesaran dos veces, 
-si eso pasa habria errores de "redefinicion" de structs/funciones 
+header guards ↑ 
+previenen que general.h se incluya varias veces
+indirectamente cuando varios .h lo incluyen, asi no se procesaan dos veces, 
+si eso pasa habria errores de redefinicion de structs/funciones 
 */ 
 
 //INCLUDES - NO NECESITAMOS VOLVERLOS A INCLUIR EN LOS .CPP
