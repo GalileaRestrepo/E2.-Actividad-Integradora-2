@@ -79,7 +79,7 @@ void leeDatos(int matAdj[MAX][MAX], Graph&G, int n, int m, int k, int q, vector<
     for(int i=0;i<n;i++){
         cin >> nombreCol >> x >> y >> esCentral;
         coloniasIdx[nombreCol] =i; //el mapa
-        if (esCentral ==0){
+        if (esCentral ==1){
             visitar.push_back(i);
         }
     }
@@ -111,11 +111,11 @@ void floyd(int matAdj[MAX][MAX], int v){
 }
 
 
-void TSP(int matAdj[MAX][MAX], vector<int>& visitar) {
+/*void TSP(int matAdj[MAX][MAX], vector<int>& visitar) {
     //Matriz de adyacencia inicializada con INF
     matAdj[visitar[0]][visitar[1]];
         //DP bitmask: dp[mask][i] = menor costo para visitar mask y terminar en i
-        int Nmask = 1 << n;
+        int Nmask = 1 << n; //vertices 
         vector<vector<int>> dp(Nmask, vector<int>(n, INF));
         dp[1][0] = 0; 
         //Transiciones del algoritmo Held-Karp
@@ -140,7 +140,7 @@ void TSP(int matAdj[MAX][MAX], vector<int>& visitar) {
         }
         if (ans >= INF) cout << "INF\n";
         else cout << ans << "\n";  
-}
+}*/
 
 
 void despliega(int matAdj[MAX][MAX], Graph &G, int n){ 
