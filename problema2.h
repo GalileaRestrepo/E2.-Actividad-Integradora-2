@@ -166,5 +166,16 @@ void despliega(int matAdj[MAX][MAX], Graph &G, int n){
     }
 }
 
+/* 
+void solucionProblema2(){
+    Graph G(n);
+    vector<int> visitar;
+    initMatAdj(matAdj);
+    leeDatos(matAdj, G, n,m,k,q,visitar);
+    floyd(matAdj, n);
+    despliega(matAdj, G,n);
+    return 0;
+}*/
+
 
 #endif

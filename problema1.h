@@ -13,6 +13,16 @@
 #include <map>
 using namespace std;
 
+//========= GLOBAL DATA STRUCT PARA EL RESTO DE LOS PROBLEMAS (PARA QUE SE PUEDA CORRER TODO EN MAIN Y NO HAYA PROBS DE QUE ALGUNO DE LOS PROBLEMAS YA HAYA CONSUMIDO EL INPUT) ===========
+struct coloniaDataGlobal{
+	string nombre;
+	int x,y;
+	int esCentral;
+};
+vector<coloniaDataGlobal> sharedExistingColonias;
+vector<pair<string, pair<int, int>>> sharedNewColonias;
+int sharedN, sharedM, sharedK, sharedQ;
+//===========================================================================================================================================================================================
 
 struct Graph1{
 	// V = Cantidad de nodos (Vertex)
@@ -109,6 +119,92 @@ void Graph1::printTotalCost(){
 		cout << "IMPOSSIBLE" << endl;
 	}
 
+}
+
+void solucionProblema1(){
+	int n, m, k, q; // cantidad de colonias, num conexiones entre colonias, 
+    //las conexiones con el nuevo cableado, y futuras colonias
+    cin >> n >> m >> k >> q;
+
+	//GLOBAL DATA VARS!!!! 
+	sharedN = n;
+  	sharedM = m;
+  	sharedK = k;
+  	sharedQ = q;
+
+    // -----------------------------------------PROBLEMA 1
+    Graph1 g(n, m);
+    
+    string nombreCol; 
+    int x, y; 
+    int esCentral; // 1 si es central, 0 si no
+
+    map<string, int> coloniasIdx;
+    vector<string> colonias(n);
+
+    for (int i = 0; i < n; i++){
+        cin >> nombreCol >> x >> y >> esCentral;
+        coloniasIdx[nombreCol] = i;
+        colonias[i] = nombreCol;
+
+		//GLOBAL DATA!!!
+		coloniaDataGlobal cdg;
+		cdg.nombre =nombreCol;
+		cdg.x = x;
+		cdg.y=y;
+		cdg.esCentral = esCentral;
+		sharedExistingColonias.push_back(cdg);
+    }
+
+    string con1, con2; // conexiones entre colonias
+    int costo;
+    int idxCol1;
+    int idxCol2;
+    for (int i = 0; i < m; i++){
+        cin >> con1 >> con2 >> costo;
+        idxCol1 = coloniasIdx[con1];
+        idxCol2 = coloniasIdx[con2];
+        g.addEdge(idxCol1, idxCol2, costo);
+    }
+
+    int idxNuevoCol1;
+    int idxNuevoCol2;
+    //map<string, int> cableadoNuevo;
+    string nuevaCon1, nuevaCon2; // nuevas conexiones con el nuevo cableado
+    for (int i = 0; i < k; i++){
+        cin >> nuevaCon1 >> nuevaCon2;
+        idxCol1 = coloniasIdx[nuevaCon1];
+        idxCol2 = coloniasIdx[nuevaCon2];
+        g.addEdge(idxCol1, idxCol2, 0);
+    }
+
+    string nuevaCol;
+    for (int i = 0; i < q; i++){
+        cin >> nuevaCol >> x >> y; // nuevas colonias y sus puntos cartecianos
+		//GLOBAL DATA!!!
+		sharedNewColonias.push_back({nuevaCol, {x, y}}); // para que no haya inconvenientes para los demas problemas de que este ya consumio el input, mejor guardarlo
+    }
+
+	g.kruskalMST();
+
+    string cableado1, cableado2;
+    int costoCon;
+    cout << "-------------------" << endl << "1 - Cableado óptimo de nueva conexión." << endl;
+    cout << endl;
+    for (auto it:g.selectedEdgesK){
+        if (it.first != 0){
+            cableado1 = colonias[it.second.first];
+            cableado2 = colonias[it.second.second];
+            costoCon = it.first;
+            cout << cableado1 << " - " << cableado2 << " " << costoCon << endl;
+        }
+	}
+    cout << endl;
+    g.printTotalCost();
+    cout << endl;
+
+    cout << "-------------------" << endl;
+    // -----------------------------------------
 }
 
 
